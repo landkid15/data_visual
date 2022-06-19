@@ -1,13 +1,11 @@
 import csv
 from matplotlib import pyplot as plt
 from datetime import datetime
-
 def get_weather_data(filename):
     """从文件中获取日期、最高气温、最低气温"""
     with open(filename) as f:
         reader = csv.reader(f)
-        header_row = next(reader)
-       
+        header_row = next(reader)     
         for row in reader:
             try:
                 high = int(row[1])
@@ -34,8 +32,7 @@ get_weather_data('death_valley_2014.csv')
 plt.plot(dates, highs,c='red',alpha=0.3)
 plt.plot(dates, lows,c='blue',alpha=0.3)
 plt.fill_between(dates,highs,lows,facecolor='blue',alpha=0.08)
-
-# 设置图形的格式
+# Set format.
 plt.title('High and low tempratures - 2014\n Sitka, AK and Death Valley, CA',fontsize=24)
 plt.xlabel('',fontsize=16)
 fig.autofmt_xdate()
