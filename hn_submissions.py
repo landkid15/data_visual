@@ -1,23 +1,17 @@
-
 from operator import itemgetter
 import requests
-
-#Make an API call and store the response
+# 执行API调用并储存响应
 url='https://hacker-news.firebaseio.com/v0/topstories.json'
-r=requests.get(url)
+r=requests.get(url)  
 print("Status Code:",r.status_code)
-
-#Process the information about each submission
+# 处理有关每篇文章的信息
 submission_ids=r.json()
 submission_dicts=[]
 for submission_id in submission_ids[:3]:
-    #Make a seperate api call for each id
-    url1=('https://hacker-news.firebaseio.com/v0/item/'+str(submission_id)+'.json')
-    submission_r=requests.get(url1)
-    print(submission_r.status_code)
+    url = ('https://hacker-news.firebaseio.com/v0/item/'+str(submission_id)+'.json')
+    submission_r=requests.get(url)
     response_dict=submission_r.json()
-    submission_dict={
-        'title':response_dict['title'],
+    submission_dict={'title':response_dict['title'],
         'link':"http://news.ycombinator.com/item?id="+str(submission_id),
         'comments':response_dict['descendants']
         }
@@ -25,5 +19,7 @@ for submission_id in submission_ids[:3]:
 submission_dicts=sorted(submission_dicts,key=itemgetter('comments'),reverse=True)
 for submission_dict in submission_dicts:
     print('\nTitle:', submission_dict['title'])
-    print('Discuission link: ',submission_dict['link'])
-    print('Comments: ',submission_dict['comments'])
+    print('Discussion link:',submission_dict['link'])
+    print('Comments:',submission_dict['comments'])
+
+
